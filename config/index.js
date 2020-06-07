@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 
-//Load .env file into process.env
+// Load .env file into process.env
 dotenv.config();
 
 module.exports = config = {

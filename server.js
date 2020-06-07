@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-// Middleware 
+// Middleware to parse json requests
 app.use(express.json());
 
 // Get process.env properities from config file
@@ -23,7 +23,6 @@ const Registree = require('./models/Registree');
 app.get('/api/registrees', async (req, res) => {
 	const registrees = await Registree.find().sort({date: -1});
 	res.json(registrees);
-	
 });
 
 app.post('/api/registrees', async (req, res) => {
