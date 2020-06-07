@@ -17,8 +17,9 @@ const registreeSchema = new mongoose.Schema({
         type:String,
         trim:true,
         required:true,
+        unique:true,
         match:[ /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-                , 'Email validated incorrectly.']
+                ,'Email validated incorrectly.']
     },
     date: {
         type: Date,
@@ -30,14 +31,14 @@ const registreeSchema = new mongoose.Schema({
 
 //Convert first name to title case
 registreeSchema.pre('save', function(next){
-    this.firstName.charAt(0).toUpperCase()
+    this.firstName = this.firstName.charAt(0).toUpperCase()
     + this.firstName.slice(1).toLowerCase()
     next();
 });
 
 //Convert last name to title case
 registreeSchema.pre('save', function(next){
-    this.lastName.charAt(0).toUpperCase()
+    this.lastName = this.lastName.charAt(0).toUpperCase()
     + this.lastName.slice(1).toLowerCase()
     next();
 });
