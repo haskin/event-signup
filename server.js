@@ -2,28 +2,25 @@ const express = require('express');
 const app = express();
 // Middleware 
 app.use(express.json());
+
+// Get process.env properities from config file
+const config = require('./config')
+const DB = `${config.MONGO_URI}/${config.DB_NAME}`
+
 const mongoose = require('mongoose');
-require('dotenv').config();
-
-
-
-// Models
-const Registree = require('./models/Registree');
-
-
-const DB = `${process.env.MONGO_URI}/${process.env.DB_NAME}`
 // Connect to MongoDB Atlast
 mongoose
 	.connect(DB, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useUnifiedTopology: true
-	}) // Adding new mongo url parser
+	}) 
 	.then(() => console.log('Database connected succesfully...'))
 	.catch(err => console.log(err));
 
+// Models
+const Registree = require('./models/Registree');
 app.get('/api/registrees', async (req, res) => {
-	console.log('in get ');
 	const registrees = await Registree.find().sort({date: -1});
 	res.json(registrees);
 	

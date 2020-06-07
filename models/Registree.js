@@ -43,4 +43,4 @@ registreeSchema.pre('save', function(next){
     next();
 });
 
-module.exports = Registree = mongoose.model('registree', registreeSchema)
+module.exports = Registree = mongoose.model('registree', registreeSchema);
