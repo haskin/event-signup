@@ -14,7 +14,7 @@ const registreeSchema = new mongoose.Schema({
         match:[/^[A-Za-z]+$/, 'Last name validated incorrectly.']
     },
     email: {
-        type:string,
+        type:String,
         trim:true,
         required:true,
         match:[ /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
