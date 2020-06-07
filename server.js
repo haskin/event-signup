@@ -1,15 +1,18 @@
 const express = require('express');
 const app = express();
-app.use(express.json());
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-app.get('/', (req,res) => {
-    res.send('hello wordl');
-});
-app.post('/signup', (req, res)=>{
-    console.log(req.body);
-    res.status(200).send();
-});
-
+const db = `${process.env.MONGO_URI}/${process.env.DB_NAME}`
+// Connect to Mongo
+mongoose
+  .connect(db, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  }) // Adding new mongo url parser
+  .then(() => console.log('Database connected succesfully...'))
+  .catch(err => console.log(err));
 
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
