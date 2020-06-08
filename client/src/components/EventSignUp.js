@@ -58,6 +58,8 @@ const EventSignUp = (props) => {
 
     return (
         <form onSubmit={submitForm}>
+            <h1>Event Sign Up</h1>
+            <p>All fields are required.</p>
             <div>
                 <label >First Name</label>
                 <input type='text' name= {INPUT.FIRST_NAME} placeholder='type your first name' 
