@@ -32,7 +32,14 @@ const EventSignUp = (props) => {
                 body:JSON.stringify(signUpData)
             }
             const response = await fetch('/api/registrees', request);
-            console.log(response.status);
+            // Successful database insert, goto /success
+            if (response.status === 200){
+                window.location.href="/success";
+            }
+            else{
+                const error = await response.json();
+                window.alert(error.message);
+            }
         }
     };
 

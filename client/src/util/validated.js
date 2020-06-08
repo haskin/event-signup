@@ -10,7 +10,7 @@ export default function validated(signUpData){
 const validateName = (name) => {
     const pattern = /^[A-Za-z]+$/;
     return RegExp(pattern).test(name) ? true : (() => {
-        window.alert(`Entered either name incorrectly.\n${name} is not valid. \n Please try again`)
+        window.alert(`Entered name incorrectly.\n${name} is not valid. \n Please try again`)
         return false;
     })();
 }

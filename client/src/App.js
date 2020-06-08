@@ -9,6 +9,10 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <main>
+            <div className="nav-links">
+              <a href="/">Home  </a>
+              <a href="/registered">Registered</a>
+            </div>
             <Switch>
               <Route path="/registered">
                 <Registrees />
