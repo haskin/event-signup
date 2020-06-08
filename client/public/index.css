@@ -55,6 +55,11 @@ button {
     padding-left:5px;
     padding-right:5px;
     align-self: flex-end;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: hsl(219, 97%, 80%);
 }
 
 abbr{
