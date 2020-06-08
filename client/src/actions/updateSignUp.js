@@ -1,6 +1,4 @@
 import SIGN_UP from './actionTypes';
-console.log(SIGN_UP)
-
 
 const updateFirstName = (input) => {
     return{
