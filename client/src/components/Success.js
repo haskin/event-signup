@@ -8,3 +8,5 @@ const Success = (props) => {
         </div>
     );
 }
+
+export default Success;

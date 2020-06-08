@@ -1,14 +1,24 @@
 import React from 'react';
-import EventSignUp from './components/EventSignUp'
+import EventSignUp from './components/EventSignUp';
+import Success from './components/Success';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <main>
-        <h1>Form</h1> 
-          <EventSignUp />
-      </main>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <main>
+            <Switch>
+              <Route path="/success">
+                <Success />
+              </Route>
+              <Route path="/">
+                <EventSignUp />
+              </Route>
+            </Switch>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 
