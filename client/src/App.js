@@ -13,17 +13,19 @@ function App() {
               <a href="/">Home  </a>
               <a href="/registered">Registered</a>
             </div>
-            <Switch>
-              <Route path="/registered">
-                <Registrees />
-              </Route>
-              <Route path="/success">
-                <Success />
-              </Route>
-              <Route path="/">
-                <EventSignUp />
-              </Route>
-            </Switch>
+              <section>
+              <Switch>
+					<Route path="/registered">
+						<Registrees />
+					</Route>
+					<Route path="/success">
+						<Success />
+					</Route>
+					<Route path="/">
+						<EventSignUp />
+					</Route>
+              </Switch>
+            </section>
         </main>
       </div>
     </BrowserRouter>

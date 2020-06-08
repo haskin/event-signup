@@ -64,7 +64,7 @@ const EventSignUp = (props) => {
     };
 
     return (
-        <form onSubmit={submitForm}>
+        <form onSubmit={submitForm} className="content-container">
             <h1>Event Sign Up</h1>
             <p>All fields are required.</p>
             <div>

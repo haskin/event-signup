@@ -13,7 +13,7 @@ const Registrees = (props) => {
     useEffect(() => {getRegistrees();}, []);
 
     return (
-        <div>
+        <div className="content-container">
             <h1>Registered</h1>
             <ul id="registrees-list">
                 {registrees.map(registree => 
