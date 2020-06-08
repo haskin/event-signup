@@ -15,6 +15,7 @@ const Registrees = (props) => {
     return (
         <div className="content-container">
             <h1>Registered</h1>
+            <p>List of everyone registered for the event.</p>
             <ul id="registrees-list">
                 {registrees.map(registree => 
                     <li key={registree._id}>

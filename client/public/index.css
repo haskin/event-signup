@@ -83,6 +83,10 @@ label{
     margin-right:10px;
 }
 
+p{
+    margin-bottom:10px;
+}
+
 /******* Media Queries *****/
 @media(max-width: 1200px){
     main{
