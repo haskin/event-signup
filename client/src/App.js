@@ -3,6 +3,7 @@ import EventSignUp from './components/EventSignUp';
 import Success from './components/Success';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Registrees from './components/Registrees';
+require("regenerator-runtime/runtime");
 
 function App() {
   return (
