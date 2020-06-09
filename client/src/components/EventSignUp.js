@@ -1,26 +1,17 @@
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {updateFirstName, updateLastName, updateEmail, updateDate} from '../actions/updateSignUp'
-import validated from '../util/validated'
+import {useSelector} from 'react-redux';
 
-const INPUT = {
-    FIRST_NAME: 'first-name',
-    LAST_NAME: 'last-name',
-    EMAIL: 'email',
-    DATE: 'date'
-}
-
+import EventField from './EventField';
+import validated from '../util/validated';
+import INPUT from '../util/inputTypes';
 
 const EventSignUp = (props) => {
     const signUpData = useSelector(state => state);
-    const dispatch = useDispatch();
-    // console.log(signUpData);
 
     const submitForm = async (event) => {
         event.preventDefault();
-        //Validation before submitting
-        // const URL = 'http:localhost:8080/signup';
         
+        //Validation before submitting
         if(validated(signUpData)){
             const request = {
                 method: 'POST',
@@ -43,54 +34,18 @@ const EventSignUp = (props) => {
         }
     };
 
-    const inputUpdate = (e) => {
-        switch(e.target.name){
-            case INPUT.FIRST_NAME:
-                dispatch(updateFirstName(e.target.value));
-                break;
-            case INPUT.LAST_NAME:
-                dispatch(updateLastName(e.target.value));
-                break;
-            case INPUT.EMAIL:
-                dispatch(updateEmail(e.target.value));
-                break;
-            case INPUT.DATE:
-                dispatch(updateDate(e.target.value));
-                break;
-            default:
-                break;
-        }
-        
-    };
-
     return (
         <form onSubmit={submitForm} className="content-container">
             <h1>Event Sign Up</h1>
             <p>All fields are required.</p>
-            <div>
-                <label >First Name</label>
-                <input type='text' name= {INPUT.FIRST_NAME} placeholder='type your first name' 
-                    onChange={inputUpdate} required></input>
-                <abbr title="required" aria-label="required">*</abbr>
-            </div>
-            <div>
-                <label>Last Name</label>
-                <input type='text' name= {INPUT.LAST_NAME} placeholder='type your last name' 
-                    onChange={inputUpdate} required></input>
-                <abbr title="required" aria-label="required">*</abbr>
-            </div>
-            <div>
-                <label>Email</label>
-                <input type='text' name= {INPUT.EMAIL} placeholder='type your email' 
-                    onChange={inputUpdate} required></input>
-                <abbr title="required" aria-label="required">*</abbr>
-            </div>
-            <div>
-                <label>Date</label>
-                <input type='date' name= {INPUT.DATE}
-                    onChange={inputUpdate} required></input>
-                <abbr title="required" aria-label="required">*</abbr>
-            </div>
+            <EventField fieldName="First Name" inputType="text" inputName={INPUT.FIRST_NAME} 
+                placeHolder="type your first name"/>
+            <EventField fieldName="Last Name" inputType="text" inputName={INPUT.LAST_NAME}
+                placeHolder="type your last name" />
+            <EventField fieldName="Email" inputType="email" inputName={INPUT.EMAIL}
+                placeHolder="type your email"/>
+            <EventField fieldName="Date" inputType="date" inputName={INPUT.DATE}
+                placeHolder=''/>
             <button onClick={submitForm}>Submit</button>
         </form>
     );
