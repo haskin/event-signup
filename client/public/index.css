@@ -44,13 +44,16 @@ a {
     color:  hsl(219, 97%, 70%);
 }
 
+.nav-links > a:first-child{
+    margin-right:5px;
+}
 
 button {
-    border-radius:30px;
+    border-radius:5px;
     color:white;
     background-color: hsl(219, 97%, 70%);
     font-size:1em;
-    font-weight:bold;
+    /* font-weight:bold; */
     padding:3px;
     padding-left:5px;
     padding-right:5px;
