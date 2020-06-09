@@ -4,6 +4,9 @@
 This application is an example of a fullstack web-form, that includes validation and testing. It was made using the MERN stack and Redux. Here is the stack:
 > MongoDB, ExpressJS, React, NodeJS
 
+All persistent state is saved on MongoDB Atlas and managed using Redux in the application.
+This app is hosted on Heroku at this [link](https://event-signup-haskin.herokuapp.com).
+
 ## Quick Start
 In order to run the application you need to have a .env file with the properties:
 >MONGO_URI, DB_NAME
@@ -23,9 +26,6 @@ npm run client
 
 # Server runs on http://localhost:3030 and client run on http://localhost:3000
 ```
-
-All persistent state is saved on MongoDB Atlas and managed using Redux in the application.
-This app is hosted on Heroku at this [link](https://event-signup-haskin.herokuapp.com).
 
 ## Validation
 Validataion is done three times. Once using HTML5 form validation, before sending the data using a fetch in the client, and before saving to the database. Here is where you can find validation files:
