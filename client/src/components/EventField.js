@@ -1,5 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {updateFirstName, updateLastName, updateEmail, updateDate} from '../actions/updateSignUp';
 import INPUT from '../util/inputTypes';
@@ -34,5 +35,12 @@ const EventField = ({fieldName, inputType, inputName, placeHolder}) => {
         </div>
     );
 };
+
+EventField.propTypes = {
+    fieldName: PropTypes.oneOf(['First Name', 'Last Name', 'Email', 'Date']),
+    inputType: PropTypes.oneOf(['text', 'email', 'date']),
+    inputName: PropTypes.oneOf(Object.values(INPUT)),
+    placeHolder: PropTypes.string
+}
 
 export default EventField;
