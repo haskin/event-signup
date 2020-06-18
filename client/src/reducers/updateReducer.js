@@ -1,13 +1,13 @@
 import SIGN_UP from '../actions/actionTypes'
 
-const initialState = {
+export const initialState = {
     firstName: '',
     lastName: '',
     email:'',
     date: ''
 }
 
-export default function updateReducer(state = initialState, action){
+export function updateReducer(state = initialState, action){
     switch(action.type){
         case SIGN_UP.FIRST_NAME:
             return {
