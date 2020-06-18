@@ -43,4 +43,4 @@ EventField.propTypes = {
     placeHolder: PropTypes.string
 }
 
-export default EventField;
+export default React.memo(EventField);

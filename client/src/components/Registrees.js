@@ -27,4 +27,4 @@ const Registrees = (props) => {
     );
 };
 
-export default Registrees;
+export default React.memo(Registrees);

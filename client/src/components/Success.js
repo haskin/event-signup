@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Success = (props) => {
+const Success = () => {
     return (
         <div className="signup-container content-container">
             <h1>Success!</h1>
@@ -10,4 +10,4 @@ const Success = (props) => {
     );
 }
 
-export default Success;
+export default React.memo(Success);

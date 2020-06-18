@@ -51,4 +51,5 @@ const EventSignUp = (props) => {
     );
 }
 
-export default EventSignUp;
+// export default EventSignUp;
+export default React.memo(EventSignUp);
