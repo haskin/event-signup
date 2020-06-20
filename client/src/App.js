@@ -7,6 +7,7 @@ require("regenerator-runtime/runtime");
 
 function App() {
   return (
+	  
     <BrowserRouter>
       <div className="App">
         <main>
@@ -14,8 +15,8 @@ function App() {
               <a href="/">Home  </a>
               <a href="/registered">Registered</a>
             </div>
-              <section>
-              <Switch>
+			<section>
+				<Switch>
 					<Route path="/registered">
 						<Registrees />
 					</Route>
@@ -25,7 +26,7 @@ function App() {
 					<Route path="/">
 						<EventSignUp />
 					</Route>
-              </Switch>
+				</Switch>
             </section>
         </main>
       </div>

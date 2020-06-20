@@ -28,8 +28,8 @@ const EventField = ({fieldName, inputType, inputName, placeHolder}) => {
 
     return(
         <div>
-            <label >{fieldName}</label>
-            <input type={inputType} name={inputName} placeholder={placeHolder} onChange={inputUpdate}
+            <label htmlFor={inputName}>{fieldName}</label>
+            <input id={inputName} type={inputType} name={inputName} placeholder={placeHolder} onChange={inputUpdate}
             required></input>
             <abbr title="required" aria-label="required">*</abbr>
         </div>

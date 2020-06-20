@@ -19,7 +19,9 @@ function customRender(ui, {
 }
 
 // re-export everything
-export * from '@testing-library/react'
+export * from '@testing-library/react';
+export * from '@testing-library/jest-dom/extend-expect';
+// export * from '@test-library/dom';
 
 
 // override render method
