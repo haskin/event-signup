@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from 'react';
 
+
 const Registrees = (props) => {
     
     const [registrees, setRegistrees] = useState([]);
 
-    const getRegistrees = async () => {
-        const response = await fetch('api/registrees');
-        const registeredPersons = await response.json();
-        setRegistrees(registrees.concat(registeredPersons));
-    }
-
-    useEffect(() => {getRegistrees();}, []);
+    useEffect(() => {
+        async function fetchRegistrees(){
+            const response = await fetch('api/registrees');
+            const registeredPersons = await response.json();
+            setRegistrees(registeredPersons);
+        }
+        fetchRegistrees();
+    }, [registrees]);
 
     return (
         <div className="content-container">
