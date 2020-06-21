@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
+import getRegistrees from '../api/getRegistrees'; // Fetches registrees from the server
 
 const Registrees = (props) => {
     const [dataFetched, setDataFetched] = useState(false);
@@ -7,13 +8,13 @@ const Registrees = (props) => {
 
     useEffect(() => {
         async function fetchRegistrees(){
-            const response = await fetch('api/registrees');
-            const registeredPersons = await response.json();
-            setRegistrees(registeredPersons);
+            // const response = await fetch('api/registrees');
+            // const registeredPersons = await response.json();
+            setRegistrees( await getRegistrees() );
             setDataFetched(true);
         }
         fetchRegistrees();
-    }, [registrees]);
+    }, []);
 
     return (
         <div className="content-container">

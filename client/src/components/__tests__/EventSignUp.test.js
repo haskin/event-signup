@@ -17,7 +17,6 @@ describe('EventSignUp Component', () => {
 
     it('renders submit button and checks that it\'s disabled initially', () =>{
         const {getByRole} = render(<EventSignUp />);
-        // expect(getByRole('button', {name:'Sign Up'}).disabled).toBe(true);
         expect(getByRole(('button'), {name:'Sign Up'})).toBeDisabled();
     });
 

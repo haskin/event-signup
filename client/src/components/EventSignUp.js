@@ -52,7 +52,7 @@ const EventSignUp = (props) => {
                 placeHolder="type your email"/>
             <EventField fieldName="Date" inputType="date" inputName={INPUT.DATE}
                 placeHolder=''/>
-            <button type="submit" disabled={errorFree}>Sign Up</button>
+            <button type="submit" disabled={!errorFree}>Sign Up</button>
         </form>
     );
 }
