@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {useSelector} from 'react-redux';
 
 import EventField from './EventField';
 import validated, {validateName, validateEmail, validateDate} from '../util/validated';
 import INPUT from '../util/inputTypes';
+import {INPUT_ERRORS as ERRORS} from '../util/inputErrors';
+
 
 const EventSignUp = (props) => {
     const signUpData = useSelector(state => state);
-    console.log(signUpData.firstName.length);
-
-    const [errorFree, setErrorFree] = useState(false);
-    
-    const checkForErrors = () => {
-        console.log(errorFree);
-        setErrorFree(validated(signUpData));
-    }
+    const errorFree = validated(signUpData);
 
     const submitForm = async (event) => {
         event.preventDefault();
@@ -46,28 +41,28 @@ const EventSignUp = (props) => {
             <h1>Event Sign Up</h1>
             <p>All fields are required.</p>
             <EventField fieldName="First Name" inputType="text" inputName={INPUT.FIRST_NAME} 
-                placeHolder="type your first name" onChange={checkForErrors} />
+                placeHolder="type your first name" />
             {(signUpData.firstName.length > 0) && !validateName(signUpData.firstName) 
             && <div className="event-field-error" data-testid="first-name-error">
-                    First name must only consist of alphabetical letter.
+                    {ERRORS.FIRST_NAME}
                 </div>}
             <EventField fieldName="Last Name" inputType="text" inputName={INPUT.LAST_NAME}
                 placeHolder="type your last name" />
             {(signUpData.lastName.length > 0) && !validateName(signUpData.lastName) 
             && <div className="event-field-error" data-testid="last-name-error">
-                    Last name must only consist of alphabetical letter.
+                    {ERRORS.LAST_NAME}
                 </div>}
             <EventField fieldName="Email" inputType="email" inputName={INPUT.EMAIL}
                 placeHolder="type your email"/>
             {(signUpData.email.length > 0) && !validateEmail(signUpData.email) 
             && <div className="event-field-error" data-testid="email-error">
-                    Email entered is not valid!
+                    {ERRORS.EMAIL}
                 </div>}
             <EventField fieldName="Date" inputType="date" inputName={INPUT.DATE}
                 placeHolder=''/>
             {(signUpData.date.length > 0) && !validateDate(signUpData.date) 
             && <div className="event-field-error" data-testid="date-error">
-                    First name must only consist of alphabetical letter.
+                    {ERRORS.DATE}
                 </div>}
             <button type="submit" disabled={!errorFree}>Sign Up</button>
         </form>
