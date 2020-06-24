@@ -1,32 +1,69 @@
 import React from 'react';
-// import {render} from '@testing-library/react';
-import {render, cleanup, fireEvent, screen } from '../../util/testUtil'
+import { act } from 'react-dom/test-utils';
+
+import { cleanup, fireEvent, render, screen } from '../../util/testUtil';
 import EventSignUp from '../../components/EventSignUp';
-import INPUT from '../../util/inputTypes';
+import {INPUT_ERRORS as ERROR} from '../../util/inputErrors';
 
 afterEach(cleanup);
 
 describe('EventSignUp Component', () => {
+
+    it('POSTs sign-up data when form submitted with valid data', async ()=> {
+        const mockSignUpPost = jest.spyOn(global, "fetch").mockImplementation(() =>
+            Promise.resolve({status:201}) );
+
+        const browserWindow = jest.spyOn(window.location, 'assign').mockImplementation( () => {
+        });
+
+        const {getByLabelText, getByTestId} = render(<EventSignUp />);
+        const [validName, validEmail, validDate] = 
+        ['A', 'valid@aol.com', '2020-01-01'];
+
+        fireEvent.change(getByLabelText('First Name'), { target: { value: validName } });
+        fireEvent.change(getByLabelText('Last Name'), { target: { value: validName } });
+        fireEvent.change(getByLabelText('Email'), { target: { value: validEmail } });
+        fireEvent.change(getByLabelText('Date'), { target: { value: validDate } })
+
+        const signUpForm = getByTestId('event-signup-form');
+
+        await act (async () => {
+            fireEvent.submit(signUpForm);
+        });
+
+        expect(mockSignUpPost).toHaveBeenCalledTimes(1);
+        // Checks the success page after successful POST
+        expect(browserWindow).toHaveBeenCalledTimes(1);
+    });
+
     it('renders all input fields', () => {
         const {getByLabelText} = render(<EventSignUp />);
         expect(getByLabelText('First Name')).toBeInTheDocument();
-        expect(getByLabelText('Last Name')).toBeTruthy();
-        expect(getByLabelText('Email')).toBeTruthy();
-        expect(getByLabelText('Date')).toBeTruthy();
+        expect(getByLabelText('Last Name')).toBeInTheDocument();
+        expect(getByLabelText('Email')).toBeInTheDocument();
+        expect(getByLabelText('Date')).toBeInTheDocument();
     });
 
     it('renders submit button and checks that it\'s disabled initially', () =>{
-        const {getByRole} = render(<EventSignUp />);
+        const {getByRole, getByLabelText} = render(<EventSignUp />);
         expect(getByRole(('button'), {name:'Sign Up'})).toBeDisabled();
     });
 
-    it.todo('enables submit button when all inputs are valid');
+    it('enables submit button when all inputs are valid', () => {
+        const [validName, validEmail, validDate] = 
+        ['A', 'valid@aol.com', '2020-01-01'];
+        const {getByRole, getByLabelText} = render(<EventSignUp />);
+        fireEvent.change(getByLabelText('First Name'), { target: { value: validName } });
+        fireEvent.change(getByLabelText('Last Name'), { target: { value: validName } });
+        fireEvent.change(getByLabelText('Email'), { target: { value: validEmail } });
+        fireEvent.change(getByLabelText('Date'), { target: { value: validDate } });
+        expect(getByRole(('button'), {name:'Sign Up'})).not.toBeDisabled();
+    });
 
     describe('First Name Input (EventSignUp)', ()=> {
         it('displays error when name is invald', ()=>{
             const {getByTestId, getByLabelText} = render(<EventSignUp />);   
             const invalidName = "123";
-            // Change input to invalid data
             fireEvent.change(getByLabelText('First Name'), { target: { value: invalidName } });
             expect(getByTestId("first-name-error")).toBeInTheDocument();
         });
@@ -35,7 +72,8 @@ describe('EventSignUp Component', () => {
             const validName = "Adrian";
             // Change input to invalid data
             fireEvent.change(getByLabelText('First Name'), { target: { value: validName } });
-            // expect(getByTestId("first-name-error")).toBeInTheDocument();
+            const error = screen.queryByText(ERROR.FIRST_NAME);
+            expect(error).toBeNull();
         });
     });
 

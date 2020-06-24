@@ -6,7 +6,8 @@ app.use(express.json());
 const assert = require('assert');
 
 // Get process.env properities from config file
-const config = require('./config')
+const config = require('./util/config')
+
 
 // Check to see if config is not falsy value
 assert(!!config === true);
@@ -34,7 +35,7 @@ app.get('/api/registrees', async (req, res) => {
 		const registrees = await Registree.find().sort({date: -1});
 		// Check that the database returned an array
 		assert(Array.isArray(registrees));
-		res.json(registrees);
+		res.status(201).json(registrees);
 	}catch(error){
 		res.status(400).send(error);
 	}
@@ -81,3 +82,5 @@ const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
 	console.log(`Server listening on port ${PORT}`)
 });
+
+module.export = app;

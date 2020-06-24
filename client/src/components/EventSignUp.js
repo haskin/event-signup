@@ -9,9 +9,12 @@ import {INPUT_ERRORS as ERRORS} from '../util/inputErrors';
 
 const EventSignUp = (props) => {
     const signUpData = useSelector(state => state);
+    // console.log(signUpData.date);
+    // console.log(!validateDate(signUpData.date));
+    // console.log(ERRORS.DATE);
     const errorFree = validated(signUpData);
 
-    const submitForm = async (event) => {
+    const signUpPost = async (event) => {
         event.preventDefault();
         //Validation before submitting
         if(validated(signUpData)){
@@ -26,8 +29,10 @@ const EventSignUp = (props) => {
             }
             const response = await fetch('/api/registrees', request);
             // Successful database insert, goto /success
-            if (response.status === 200){
-                window.location.href="/success";
+            if (response.status === 201){
+                // window.location.href="/success";
+                window.location.assign("/success");
+                // return response.status;
             }
             else{
                 const error = await response.json();
@@ -37,7 +42,7 @@ const EventSignUp = (props) => {
     };
 
     return (
-        <form onSubmit={submitForm} className="content-container">
+        <form onSubmit={signUpPost} className="content-container" data-testid="event-signup-form">
             <h1>Event Sign Up</h1>
             <p>All fields are required.</p>
             <EventField fieldName="First Name" inputType="text" inputName={INPUT.FIRST_NAME} 

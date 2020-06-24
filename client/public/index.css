@@ -65,6 +65,12 @@ button:hover{
     background-color: hsl(219, 97%, 80%);
 }
 
+button:disabled{
+    color:hsla(0, 0%, 95%);
+    background-color: hsla(0, 0%, 65%);
+    cursor: not-allowed;
+}
+
 abbr{
     color: red;
 }
@@ -93,6 +99,15 @@ label{
 
 p{
     margin-bottom:10px;
+}
+
+.event-field-error{
+    padding:0;
+    margin:0;
+    color:red;
+    font-size:.65em;
+    line-height: 5mm;
+    font-weight:bold;
 }
 
 /******* Media Queries *****/
