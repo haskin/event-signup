@@ -30,22 +30,13 @@ const validateDate = (date) => {
     const pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
     const matched = RegExp(pattern).test(date);
 
-   return true;
     if(matched){
-        try{
-            const newDate = new Date(date);
-            console.log(newDate);
-            if(!newDate.valueOf()) return false;
-            else return true;
-        }catch(e){
-            return false;
-        }
+        var d = new Date(date);
+        var dNum = d.getTime();
+        if(!dNum && dNum !== 0) return false; // NaN value, Invalid date
+        return d.toISOString().slice(0,10) === date;
     } 
     else return false;
-    // return RegExp(pattern).test(date) ? true : (() => {
-    //     window.alert('Entered date incorrectly!\nPlease try again.')
-    //     return false;
-    // })();;
 }
 
 export {validateName, validateEmail, validateDate};
