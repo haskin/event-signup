@@ -5,7 +5,7 @@ const config = require('./util/config');
 const DB = `${config.MONGO_URI}/${config.DB_NAME}`;
 
 module.exports.connect = async () => {
-    mongoose
+    await mongoose
 	.connect(DB, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
@@ -16,7 +16,7 @@ module.exports.connect = async () => {
 };
 
 module.exports.disconnect = async () => {
-    mongoose.connection.close()
+    await mongoose.connection.close()
         .then(() => console.log('Database closed successfully...'))
         .catch((err) => console.log(err));
 };

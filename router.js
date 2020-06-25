@@ -10,9 +10,10 @@ const Registree = require('./models/Registree');
 
 router.get('/api/registrees', async (req, res) => {
 	try{
-        database.connect();
-        const registrees = await Registree.find().sort({date: -1});
-        database.disconnect();
+        await database.connect();
+        const registrees = await Registree.find();
+        // const registrees = await Registree.find().sort({date: -1});
+        await database.disconnect();
         // console.log((await Registree.find({firsName:'Bob'})).length);
 		// Check that the database returned an array
         assert(Array.isArray(registrees));
@@ -21,21 +22,22 @@ router.get('/api/registrees', async (req, res) => {
         else
 		    res.status(200).json(registrees);
 	}catch(error){
+        await database.disconnect()
 		res.status(400).send(error);
 	}
 });
 
 router.post('/api/registrees', async (req, res) => {
 	try{
-        database.connect();
+        await database.connect();
         const newRegisteree = new Registree(req.body);
 		newRegisteree.save()
-			.then((registree) => {
-                database.disconnect();
+			.then(async (registree) => {
+                await database.disconnect();
                 res.status(201).send({error:false}) 
-            })
-			.catch(error => {
-                database.disconnect();
+			})
+			.catch(async (error) => {
+				await database.disconnect();
 				// Database duplicate error code
 				if(error.code === 11000){
 					res.status(409).send({
@@ -44,16 +46,16 @@ router.post('/api/registrees', async (req, res) => {
 					});
 				}
 				// Should be a validation error
-				else{
+				else {
 					res.status(400).send({
 							error:true,
 							message:error.message
 					});
 				}
-			});
+			})
 	}catch(error){
 		res.status(400).send({message:"Unexpected error. Couldn't save to database."});
-	};
+	}
 });
 
 module.exports = router;
