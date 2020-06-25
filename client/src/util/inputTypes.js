@@ -6,3 +6,5 @@ const INPUT = {
 }
 
 export default INPUT;
+
+module.export = INPUT;

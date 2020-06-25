@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import getRegistrees from '../api/getRegistrees'; // Fetches registrees from the server
 
 const Registrees = (props) => {
-    const [dataFetched, setDataFetched] = useState(false);
+    const [dataFetched, setDataFetched] = useState(true);
     const [registrees, setRegistrees] = useState([]);
 
     useEffect(() => {

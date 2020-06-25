@@ -35,8 +35,14 @@ const EventSignUp = (props) => {
                 // return response.status;
             }
             else{
-                const error = await response.json();
-                window.alert(error.message);
+                if(response.status === 409){
+                    const error = await response.json();
+                    window.alert(error.message);
+                }
+                else{
+                    const error = await response.json();
+                    window.alert(error.message);
+                }
             }
         }
     };
@@ -69,7 +75,7 @@ const EventSignUp = (props) => {
             && <div className="event-field-error" data-testid="date-error">
                     {ERRORS.DATE}
                 </div>}
-            <button type="submit" disabled={!errorFree}>Sign Up</button>
+            <button data-testid="event-signup-button" type="submit" disabled={!errorFree} >Sign Up</button>
         </form>
     );
 }
