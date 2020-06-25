@@ -5,40 +5,21 @@ const router = express.Router();
 // Middleware to parse json requests
 router.use(express.json())
 
-
-// Get process.env properities from config file
-const config = require('./util/config')
-
-
-// Check to see if config is not falsy value
-assert(!!config === true);
-
-const DB = `${config.MONGO_URI}/${config.DB_NAME}`
-
-const mongoose = require('mongoose');
-// Connect to MongoDB Atlast
-mongoose
-	.connect(DB, {
-		useNewUrlParser: true,
-		useCreateIndex: true,
-		useUnifiedTopology: true
-	}) 
-	.then(() => console.log('Database connected succesfully...'))
-	.catch(err => console.log(err));
-
-// Check that mongoose was connected
-assert(!!mongoose === true);
-
-// Models
+const database = require("./database");
 const Registree = require('./models/Registree');
-
 
 router.get('/api/registrees', async (req, res) => {
 	try{
-		const registrees = await Registree.find().sort({date: -1});
+        database.connect();
+        const registrees = await Registree.find().sort({date: -1});
+        database.disconnect();
+        // console.log((await Registree.find({firsName:'Bob'})).length);
 		// Check that the database returned an array
-		assert(Array.isArray(registrees));
-		res.status(201).json(registrees);
+        assert(Array.isArray(registrees));
+        if(registrees.length === 0)
+            res.status(204).json([]);
+        else
+		    res.status(200).json(registrees);
 	}catch(error){
 		res.status(400).send(error);
 	}
@@ -46,10 +27,15 @@ router.get('/api/registrees', async (req, res) => {
 
 router.post('/api/registrees', async (req, res) => {
 	try{
-		const newRegisteree = new Registree(req.body);
+        database.connect();
+        const newRegisteree = new Registree(req.body);
 		newRegisteree.save()
-			.then( (registree) => res.status(200).send({error:false}) )
+			.then((registree) => {
+                database.disconnect();
+                res.status(201).send({error:false}) 
+            })
 			.catch(error => {
+                database.disconnect();
 				// Database duplicate error code
 				if(error.code === 11000){
 					res.status(409).send({
