@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 const request = require('supertest');
 const express = require('express');
 
@@ -5,6 +9,8 @@ const router = require('../router');
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use('/', router);
+
+const testDatabase = require('../util/memoryServerRepository');
 
 const Registree = require('../models/Registree');
 
@@ -15,6 +21,7 @@ describe('Registrees Routing and API', () => {
             // Resolve the GET with an empty array
             const mockFind = jest.spyOn(Registree, "find").mockImplementation(() =>
                 Promise.resolve([]));
+
             const response = await request(app).get('/api/registrees');
             
             expect(mockFind).toHaveBeenCalledTimes(1);
@@ -23,13 +30,19 @@ describe('Registrees Routing and API', () => {
         });
 
         it('responds correctly when database has data', async () => {
+
+            const mockSignUp = [{firstName:'first', lastname:'last',
+                                email: 'email@a.com',  date: '2020-01-01'}];
+            // Ensures that the GET responds with mockSignUp
+            const mockFind = jest.spyOn(Registree, "find").mockImplementation(() =>
+                Promise.resolve(mockSignUp));
+
             const response = await request(app).get('/api/registrees')
-            if(response.body.length > 0){
-                expect(response.header['content-type']).toEqual('application/json; charset=utf-8');
-                expect(response.status).toEqual(200);
-            }
-            else 
-                expect(response.status).toEqual(204);
+            expect(response.body.length).toEqual(1);
+            expect(response.header['content-type']).toEqual('application/json; charset=utf-8');
+            expect(response.status).toEqual(200);
+
+            mockFind.mockRestore();
         });
 
         it('responds correctly when database has an error', async () => {
@@ -52,7 +65,6 @@ describe('Registrees Routing and API', () => {
                                             return new Promise(resolve => resolve([]) )
                                         });
             const response  = await request(app).post('/api/registrees');
-            console.log(response.message);
             expect(mockDatabaseSave).toHaveBeenCalledTimes(1);
             expect(response.status).toEqual(201);
             mockDatabaseSave.mockRestore();

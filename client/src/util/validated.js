@@ -26,7 +26,6 @@ const validateEmail = (email) => {
 }
 
 const validateDate = (date) => {
-    console.log(date);
     const pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
     const matched = RegExp(pattern).test(date);
 

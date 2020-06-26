@@ -5,13 +5,22 @@ const router = express.Router();
 // Middleware to parse json requests
 router.use(express.json())
 
-const database = require("./database");
+// To get process.env properties
+const config = require('./util/config');
+// Jest sets NODE_ENV to 'test' by default
+// Chooses between testing database and production database
+const database = ( process.env.NODE_ENV === 'test' ) ? 
+	require('./util/memoryServerRepository') : require('./database');
+
+// const database = require('./util/memoryServerRepository'); 
+// const database = require('./database');
+
 const Registree = require('./models/Registree');
 
 router.get('/api/registrees', async (req, res) => {
 	try{
         await database.connect();
-        const registrees = await Registree.find();
+		const registrees = await Registree.find();
         // const registrees = await Registree.find().sort({date: -1});
         await database.disconnect();
         // console.log((await Registree.find({firsName:'Bob'})).length);
@@ -29,14 +38,16 @@ router.get('/api/registrees', async (req, res) => {
 
 router.post('/api/registrees', async (req, res) => {
 	try{
-        await database.connect();
-        const newRegisteree = new Registree(req.body);
+		await database.connect();
+		const newRegisteree = new Registree(req.body);
+
 		newRegisteree.save()
 			.then(async (registree) => {
-                await database.disconnect();
+				await database.disconnect();
                 res.status(201).send({error:false}) 
 			})
 			.catch(async (error) => {
+				// console.log(error);
 				await database.disconnect();
 				// Database duplicate error code
 				if(error.code === 11000){

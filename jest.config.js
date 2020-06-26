@@ -1,6 +1,7 @@
 module.exports = {
     preset: '@shelf/jest-mongodb',
-    // testEnvironment:"jsdom"
+    // testEnvironment:"browser"
+    // testEnvironment:"node"
 };
 
 // testEnvironment:"node"

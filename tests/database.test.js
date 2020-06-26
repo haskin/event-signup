@@ -1,3 +1,7 @@
+/**
+ * @jest-environment node
+ */
+
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
@@ -58,20 +62,3 @@ describe('Mongo Database ', () => {
         });
     });
 });
-
-// describe('MongoDB Database', () => {
-    // jest.useFakeTimers();
-    //This is the actual database not a Mongo Memory Server
-    // it('successfully connects to the real-database', async () => {
-        // const db = await mongoose.connect(DB, 
-        //         {useUnifiedTopology:true}
-        // ).then(event => {
-        //     expect(event.connections[0].name).toBe(config.DB_NAME);
-        //     event.connection.close();
-        // })
-    //     const db = await mongoose.connect(DB, {useUnifiedTopology:true});
-    //     expect(true).toBe(true);
-    //     await db.disconnect();
-    // }); 
-
-// });

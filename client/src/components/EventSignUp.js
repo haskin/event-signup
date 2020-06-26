@@ -7,12 +7,20 @@ import INPUT from '../util/inputTypes';
 import {INPUT_ERRORS as ERRORS} from '../util/inputErrors';
 
 
+// function goToSuccessPage() {
+//     window.location.assign("/success");
+// }
+
 const EventSignUp = (props) => {
     const signUpData = useSelector(state => state);
     // console.log(signUpData.date);
     // console.log(!validateDate(signUpData.date));
     // console.log(ERRORS.DATE);
     const errorFree = validated(signUpData);
+
+    function goToSuccessPage() {
+        window.location.assign("/success");
+    }
 
     const signUpPost = async (event) => {
         event.preventDefault();
@@ -31,7 +39,11 @@ const EventSignUp = (props) => {
             // Successful database insert, goto /success
             if (response.status === 201){
                 // window.location.href="/success";
+                // const goToSuccessPage = () => {
+                //     window.location.assign("/success");
+                // }
                 window.location.assign("/success");
+                // goToSuccessPage();
                 // return response.status;
             }
             else{

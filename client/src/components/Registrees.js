@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import getRegistrees from '../api/getRegistrees'; // Fetches registrees from the server
 
 const Registrees = (props) => {
-    const [dataFetched, setDataFetched] = useState(true);
+    const [dataFetched, setDataFetched] = useState(false);
     const [registrees, setRegistrees] = useState([]);
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const Registrees = (props) => {
             <h1>Registered</h1>
             <p>List of everyone registered for the event.</p>
 
-            {!dataFetched && <div style={{textAlign:"center", color:"yellow"}}>Loading...</div>}
+            {!dataFetched && <div style={{textAlign:"center", color:"red"}}>Loading...</div>}
             {dataFetched &&
             <ul id="registrees-list" data-testid="registrees-list">
                 {registrees.map(registree => 

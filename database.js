@@ -11,12 +11,14 @@ module.exports.connect = async () => {
 		useCreateIndex: true,
 		useUnifiedTopology: true
 	}) 
-	.then(() => console.log('Database connected successfully...'))
+	// .then(() => console.log('Database connected successfully...'))
+	.then(() => {})
 	.catch(err => console.log(err));
 };
 
 module.exports.disconnect = async () => {
-    await mongoose.connection.close()
-        .then(() => console.log('Database closed successfully...'))
+	await mongoose.connection.close()
+		// .then(() => console.log('Database closed successfully...'))
+        .then()
         .catch((err) => console.log(err));
 };
