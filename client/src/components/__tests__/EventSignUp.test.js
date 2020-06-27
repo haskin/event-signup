@@ -74,7 +74,6 @@ describe('EventSignUp Component', () => {
         it('displays no error when name is valid', () => {
             const {getByTestId, getByLabelText} = render(<EventSignUp />); 
             const validName = "Adrian";
-            // Change input to invalid data
             fireEvent.change(getByLabelText('First Name'), { target: { value: validName } });
             const error = screen.queryByText(ERROR.FIRST_NAME);
             expect(error).toBeNull();
@@ -82,18 +81,51 @@ describe('EventSignUp Component', () => {
     });
 
     describe('Last Name Input (EventSignUp)', ()=> {
-        it.todo('displays error when name is invald');
-        it.todo('displays no error when name is valid')
+        it('displays error when name is invald', () => {
+            const {getByTestId, getByLabelText} = render(<EventSignUp />);   
+            const invalidName = "123";
+            fireEvent.change(getByLabelText('Last Name'), { target: { value: invalidName } });
+            expect(getByTestId("last-name-error")).toBeInTheDocument();
+        });
+        it('displays no error when name is valid', () => {
+            const {getByLabelText} = render(<EventSignUp />); 
+            const validName = "Adrian";
+            fireEvent.change(getByLabelText('Last Name'), { target: { value: validName } });
+            const error = screen.queryByText(ERROR.LAST_NAME);
+            expect(error).toBeNull();
+        });
     });
 
 
     describe('Email Input (EventSignUp)', ()=> {
-        it.todo('displays error when name is invald');
-        it.todo('displays no error when name is valid')
+        it('displays error when name is invald', () => {
+            const {getByTestId,getByLabelText} = render(<EventSignUp />);   
+            const invalidEmail = "123";
+            fireEvent.change(getByLabelText('Email'), { target: { value: invalidEmail } });
+            expect(getByTestId("email-error")).toBeInTheDocument();
+        });
+        it('displays no error when name is valid', () => {
+            const {getByLabelText} = render(<EventSignUp />); 
+            const validEmail = "a@a.com";
+            fireEvent.change(getByLabelText('Email'), { target: { value: validEmail } });
+            const error = screen.queryByText(ERROR.EMAIL);
+            expect(error).toBeNull();
+        });
     });
 
     describe('Date Input (EventSignUp)', ()=> {
-        it.todo('displays error when name is invald');
-        it.todo('displays no error when name is valid')
+        it('displays error when name is invald', () => {
+            const {getByTestId,getByLabelText} = render(<EventSignUp />);   
+            const invalidDate = "202020-01-01";
+            fireEvent.change(getByLabelText('Date'), { target: { value: invalidDate } });
+            expect(getByTestId("date-error")).toBeInTheDocument();
+        });
+        it('displays no error when name is valid', () => {
+            const {getByLabelText} = render(<EventSignUp />); 
+            const validDate = "2020-01-01";
+            fireEvent.change(getByLabelText('Date'), { target: { value: validDate } });
+            const error = screen.queryByText(ERROR.DATE);
+            expect(error).toBeNull();
+        });
     });
 });

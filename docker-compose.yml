@@ -1,0 +1,27 @@
+version: "3"
+services:
+    server:
+        # container_name: event-signup-server
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        image: haskin/eventsignup-server
+        ports:
+            - "3030:3030"
+        volumes:
+            - . :/home/node/app
+        command: npm run server
+    client:
+        # container_name: event-signup-client
+        build: 
+            context: ./client
+            dockerfile: Dockerfile
+        image: haskin/eventsignup-client
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./client:/home/node/app/client
+        links:
+            - server
+        command: npm start
+    
