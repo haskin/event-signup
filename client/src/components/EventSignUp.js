@@ -7,20 +7,12 @@ import INPUT from '../util/inputTypes';
 import {INPUT_ERRORS as ERRORS} from '../util/inputErrors';
 
 
-// function goToSuccessPage() {
-//     window.location.assign("/success");
-// }
-
 const EventSignUp = (props) => {
     const signUpData = useSelector(state => state);
     // console.log(signUpData.date);
     // console.log(!validateDate(signUpData.date));
     // console.log(ERRORS.DATE);
     const errorFree = validated(signUpData);
-
-    function goToSuccessPage() {
-        window.location.assign("/success");
-    }
 
     const signUpPost = async (event) => {
         event.preventDefault();
@@ -35,26 +27,27 @@ const EventSignUp = (props) => {
                 },
                 body:JSON.stringify(signUpData)
             }
+
             const response = await fetch('/api/registrees', request);
-            // Successful database insert, goto /success
-            if (response.status === 201){
-                // window.location.href="/success";
-                // const goToSuccessPage = () => {
-                //     window.location.assign("/success");
-                // }
-                window.location.assign("/success");
-                // goToSuccessPage();
-                // return response.status;
-            }
-            else{
-                if(response.status === 409){
+            switch(response.status){
+                case(201):
+                    window.location.assign("/success");
+                    break;
+                case(409):
                     const error = await response.json();
                     window.alert(error.message);
-                }
-                else{
-                    const error = await response.json();
-                    window.alert(error.message);
-                }
+                    break;
+                case(500):
+                    let errorMessage = 'Couldn\'t connect to server.' 
+                     + ' The account wasn\'t saved. Please try again.';
+                    window.alert(errorMessage);
+                    break;
+                default:
+                    errorMessage = 'The account couldn\'t be saved.'
+                    + 'The response status returned by the server was '
+                    + `${response.status}. Please try again.`
+                    window.alert(error)
+                    break;
             }
         }
     };
