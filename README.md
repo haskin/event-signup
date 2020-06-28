@@ -8,6 +8,16 @@ All persistent state is saved on MongoDB Atlas and managed using Redux in the ap
 This app is hosted on Heroku at this [link](https://event-signup-haskin.herokuapp.com).
 
 ## Quick Start
+
+### Docker App Image
+This application can be pulled from docter hub using the following command:
+>docker pull haskin/event-signup:app
+
+When using docker run, you most publish a host port to the container port 3030.
+>docker run -p [host_port]:3030 ...
+
+### Normal Setup (Non-Docker)
+
 In order to run the application you need to have a .env file with the properties:
 >MONGO_URI, DB_NAME
 
@@ -27,14 +37,45 @@ npm run client
 # Server runs on http://localhost:3030 and client run on http://localhost:3000
 ```
 
+
+## Testing
+There are 30 tests included, which were made using Jest, react-testing-library, and cypress.
+
+### Docker Test Images
+Docker tests for the server and client can be pulled with the following commands:
+```
+docker pull haskin/event-signup:server-test
+docker pull haskin/event-signup:client-test
+```
+### Testing commands 
+
+```bash
+# Run Server Tests
+npm run server-test
+
+# Run Client Tests
+npm run client-test
+
+# Run End-to-End Test 
+#### Requirements: NODE_ENV ="test", Server & Client must be running
+npm run cypress
+
+```
+## Testing Directories
+
+#### Client Tests
+> ./client/src/components/_\_tests_ 
+
+#### Server Tests
+> ./tests
+
+#### End-To-End Tests
+> ./cypress/integration/e2e.spec.js
+
+
 ## Validation
 Validataion is done three times. Once using HTML5 form validation, before sending the data using a fetch in the client, and before saving to the database. Here is where you can find validation files:
 >/client/src/utils/validated.js
+
 >/models/Registree.js
-
-## Testing
-On the client side testing is done using two libraries: Jest and Enzyme. Most of the tests are snapshots.
-They can be seen here:
->/client/src/components/_\_tests__
-
-On the server side I used the NodeJS built-in assert module to test the server.
+_
